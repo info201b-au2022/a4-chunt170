@@ -5,7 +5,7 @@ source("C:/Users/caitl/Documents/info201/assignments/a4-chunt170/source/a4-helpe
 
 data <- get_data()
 
-## Section 2  ---- 
+## Section 2  ----
 #----------------------------------------------------------------------------#
 # Min year in dataset
 get_min_year <- function() {
@@ -77,7 +77,7 @@ get_average_native_jail_pop <- function() {
 }
 #----------------------------------------------------------------------------#
 
-## Section 3  ---- 
+## Section 3  ----
 #----------------------------------------------------------------------------#
 # Growth of the U.S. Prison Population
 # Creates new total jail population over time df that contains plot specific information
@@ -85,21 +85,21 @@ get_year_jail_pop <- function() {
   new_df <- data %>%
     filter(!is.na(total_jail_pop)) %>%
     select(year, total_jail_pop)
-  return(new_df)   
+  return(new_df)
 }
 # Creates total jail population over time plot with df
-plot_jail_pop_for_us <- function()  {
+plot_jail_pop_for_us <- function() {
   jail_graph <- ggplot(get_year_jail_pop(), aes(x = year, y = total_jail_pop)) +
-    geom_bar(stat = 'Identity') +
+    geom_bar(stat = "Identity") +
     scale_x_continuous("Timeline (years)", breaks = c(1970, 1980, 1990, 2000, 2010, 2020)) +
     scale_y_continuous("Total Jail Populations", breaks = c(200000, 400000, 600000, 800000), labels = c("200,000", "400,000", "600,000", "800,000"))
-  return(jail_graph)   
+  return(jail_graph)
 }
 #----------------------------------------------------------------------------#
 
-## Section 4  ---- 
+## Section 4  ----
 #----------------------------------------------------------------------------#
-# Growth of Prison Population by State 
+# Growth of Prison Population by State
 # Creates new state over time df that contains plot specific information
 get_jail_pop_by_states <- function(states) {
   new_df <- data %>%
@@ -110,7 +110,7 @@ get_jail_pop_by_states <- function(states) {
 }
 # Creates plot with state over time df
 plot_jail_pop_by_states <- function(states) {
-  state_graph <- ggplot(get_jail_pop_by_states(states), aes(x = year, y = total_jail_pop, color = state)) + 
+  state_graph <- ggplot(get_jail_pop_by_states(states), aes(x = year, y = total_jail_pop, color = state)) +
     geom_line() +
     scale_x_continuous("Timeline (years)", breaks = c(1970, 1980, 1990, 2000, 2010, 2020)) +
     scale_y_continuous("Total Jail Populations")
@@ -118,7 +118,7 @@ plot_jail_pop_by_states <- function(states) {
 }
 #----------------------------------------------------------------------------#
 
-## Section 5  ---- 
+## Section 5  ----
 #----------------------------------------------------------------------------#
 # Create df of gender incarceration information
 get_gender_df <- function() {
@@ -131,7 +131,7 @@ get_gender_df <- function() {
 
 # Create plot of gender incarceration
 plot_jail_pop_by_gender <- function() {
-  state_graph <- ggplot(get_gender_df(), aes(x = year)) + 
+  state_graph <- ggplot(get_gender_df(), aes(x = year)) +
     geom_line(aes(y = male_jail, color = "Male")) +
     geom_line(aes(y = female_jail, color = "Female")) +
     scale_x_continuous("Timeline") +
@@ -140,7 +140,7 @@ plot_jail_pop_by_gender <- function() {
 }
 #----------------------------------------------------------------------------#
 
-## Section 6  ---- 
+## Section 6  ----
 #----------------------------------------------------------------------------#
 # Create a df of state coordinates and other information
 get_state_shape <- function() {
@@ -157,21 +157,21 @@ get_total_jail_state <- function() {
     group_by(state) %>%
     summarize(total_jail_pop = sum(total_jail_pop)) %>%
     ungroup() %>%
-    left_join(get_state_shape(), by="state")
+    left_join(get_state_shape(), by = "state")
   return(state_df)
 }
 
 # Get map plot of chloropleth total prison population
 get_total_jail_state_plot <- function() {
   state_plot <- ggplot(get_total_jail_state()) +
-                geom_polygon(
-                  mapping = aes(x = long, y = lat, group = group, fill = total_jail_pop),
-                  color = "white",
-                  size = .1
-                ) +
-                coord_map() +
-                scale_fill_continuous(breaks = c(750000, 1500000, 2250000, 2900000), low = "#003f5c", high = "#bc5090") +
-                labs(fill = "Total Prison Population")
+    geom_polygon(
+      mapping = aes(x = long, y = lat, group = group, fill = total_jail_pop),
+      color = "white",
+      size = .1
+    ) +
+    coord_map() +
+    scale_fill_continuous(breaks = c(750000, 1500000, 2250000, 2900000), low = "#003f5c", high = "#bc5090") +
+    labs(fill = "Total Prison Population")
   return(state_plot)
 }
 #----------------------------------------------------------------------------#
