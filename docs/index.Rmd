@@ -1,6 +1,6 @@
 ---
-title: "Your A4 Report Title (TODO: Revise title)"
-author: "Your Name"
+title: "Investigation of Incarceration Inequality"
+author: "Caitlin Hunt"
 date: '2022-11-01'
 output: html_document
 ---
@@ -11,35 +11,47 @@ source("../source/analysis.R")
 ```
 
 ## Abstract 
-[TODO: Include a short abstract (about 50 words)]
-
-# Test (TODO: Remove before submission!!)
-```{r echo=FALSE}
-q1_string <- test_query1()
-num <- 5
-```
-As you know, this is a markdown report. The [R Markdown Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) is **useful!**
-
-* Here's a test of a dynamic variable. Say **"`r q1_string`!!!** 
-* Here's another test. A vector
-of numbers: `r test_query2(num)`.
-
-Recall that _{r echo=TRUE}_ can be used to display the code, 
-which is very useful when developing and debugging a report. Here's an example: 
-
-```{r echo=TRUE}
-num <- 5
-sum <- sum(test_query2(num))
-print(sum)
-```
+This report investigates the many variables that could potentially contribute to the inequality of incarcerated persons in the United States. These include looking at the population over time and gender/state disparities when it comes to incarceration. While always keeping in mind that correlation never equates causation.
 
 ## Introduction 
-[TODO]
+Incarceration has ripple affects, impacting the family, friends, and communities that are adjacent to those taken. More so than not, are these persons of color communities that bear the brunt of it all. Through over policing, hot spotting, and the war on drugs that is taking place around the United States, these communities are being targeted from all angles. This dataset, collected generously from the Vera Institute, provides a unique opportunity to look through the demographics to get an even clearer idea of the people that are most impacted. Though it is good practice to pay attention to the fact that the data is more than just numbers and statistics, but also reflects the humans, the families, and authentic traumas that have been suffered to result in the creation of the this data set in the first place. It is important to keep in mind to give credit and sympathy to those that have been incarcerated and the communities around them, these datapoints could be points of traumatic times in their lives and thus it is crucial to recognize that fact through the rest of the research.
+This report investigates whether there is well enough fact to place gender or geographical location as a cause of unequal distribution of incarceration. Does gender have unequal incarceration rates? Does geographical location?
 
 ## Data Summary 
-[TODO]
+This data set provides a unique opportunity to analyze the change over time as it expands over a few decades, starting at `r get_min_year()` and then ending `r get_max_year()`. The average population of those in jail in the 1970s was `r get_average_jail_pop_1970s()` persons and the average population of those in jail in the 2010s was `r get_average_jail_pop_2010s()` persons. Overall there can be seen to be a signifcant increase in averages between these two decades. Taking a closer look at the inequalities present in the incarceration system is breaking it down into two main categories: gender and race. For gender, the average incarceration rate for males is `r get_average_male_jail_pop()` and females is `r get_average_female_jail_pop()`. For race, the average incarceration rate for whites is `r get_average_white_jail_pop()`, blacks is `r get_average_black_jail_pop()`, aapis is `r get_average_aapi_jail_pop()`, natives is `r get_average_native_jail_pop()`, and latinx is `r get_average_latinx_jail_pop()`. From these numbers, there are some obvious differences that will be further explored in the rest of this report.
 
-[TODO ... other sections ... See Canvas for details]
+## Growth of the US Jail Population
+```{r echo=FALSE}
+plot_jail_pop_for_us()
+```
 
-_All the very best with your work!_
+Visualizing the US Jail Population from 1970 to 2018 that reveals the increase in incarceration overall
 
+Overall the graph depicts a steady positive trend between years and total jail population. This rate of change seems to be increasing the most from the mid 1980s to the late 2000s where it eventually plateaus. It is hard to depict the confounding variables that are influencing these trends without further research, though it is common knowledge that the War on Drugs and the end of the Cold War was taking place during this time that could have led to unrest and the trend for over policing. So the question is, what further happenings can be further investigated as to why the increase of incarcerations was happening during this time?
+
+## Growth of Prison Population by State
+```{r echo=FALSE}
+plot_jail_pop_by_states(c("WA", "OR", "CA"))
+```
+
+Visualizing the jail incarceration from 1970 to 2018 by state, California seem to have significantly more incarcerations during this time than both Oregon and Washington.
+
+The incarceration rate of California seems to be significantly more than that of Washington and Oregon when they are compared to each other. All in all, it seems like Washington and Oregon have relatively similar incarceration rates, though Washington seem to have more as time goes on. What confounding variables are contributing to the discrepancies of incarceration rates among states?
+
+## Gender Comparison in Investigation of Inequality
+```{r echo=FALSE}
+plot_jail_pop_by_gender()
+```
+
+Over the years, females and males have unequally increased at grossly different rates
+
+Is there inequality among the binary genders in relation to incarceration rates? Based off the discrepancies in the chart illustrated above, there is reason to believe there may be bias or societal pressure that is leading to these results. Though it is crucial to keep in mind that only two genders are being represented in this sample when even more insight could provide an even curiouser glance at the interaction among incarceration rates and gender.
+
+## Geographic Investigation into Inequality
+```{r echo=FALSE}
+get_total_jail_state_plot()
+```
+
+A chloropleth map of the United States incarcerated population from 1970-2018. There seems to be major concentrations of imprisoned persons in certain states of the United States.
+
+Is there patterns of inequality geographically when it comes to incarceration? Potentionally, it seems like there is a higher amount of incarcerated populations in place with major urban city areas and those primarily on the East coast. The main hotspot areas seem to be located in California, Texas, Florida, and New York.
